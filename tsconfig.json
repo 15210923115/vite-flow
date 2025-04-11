@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        // 编译目标的语法
+        "target": "ESNext",
+        // 编译目标的模块规范
+        "module": "ESNext",
+        // 模块（文件）解析规范
+        "moduleResolution": "node",
+        // 严格模式
+        "strict":true,
+        // 启动sourcemap调试
+        "sourceMap": true,
+        // vue有自己的解析方式，不需要去解析jsx
+        "jsx": "preserve",
+        // node模块规范和es6模块规范可以相互转换
+        "esModuleInterop": true,
+        // 支持esnext、dom语法
+        "lib": ["ESNext", "dom"]
+    },
+    // 编译哪些文件
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+}

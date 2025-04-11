@@ -1,0 +1,9 @@
+# eslint忽略校验的文件
+node_modules
+dist
+*.css
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.d.ts
