@@ -553,3 +553,83 @@ server: {
 # 十、Pinia 状态管理
 
 # 十一、CIDI 自动发布
+
+需要在工程的根目录下创建 `.github/workflows/main.yml`文件（这是约定，固定死的文件），文件内容如下：
+
+```
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: ["master"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          # Version of pnpm to install
+          version: "7.5.0"
+
+      - name: Instanll Deps
+        run: pnpm install
+
+      - name: Build Website
+        run: pnpm build
+
+      - name: ssh deploy
+        uses: easingthemes/ssh-deploy@v2.2.11
+        with:
+          # Private Key
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          # Remote host
+          REMOTE_HOST: ${{ secrets.HOST }}
+          # Remote user
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          # Remote port
+          SOURCE: ./dist/
+          # Target directory
+          TARGET: /home/test
+
+```
+
+可以看到，执行CICD的脚本中，检测的是 `master`分支一旦有新的推送，就立即出发构建任务，服务器使用的是 `ubuntu-latest `系统，然后先安装7.5.0版本的 `pnpm `，再执行 `pnpm install `命令安装依赖，然后执行 `pnpm build`命令打包，打包后的操作通常有以下几种：
+
+1. 上传到OSS上
+2. 上传到CDN上
+3. 放到自己的服务器上
+
+在这里，打包后，我们是上传到自己的服务器上了，上传服务器有以下两种方式：
+
+1. 自己手动上传
+2. 通过scp命令
+3. 通过ssh命令
+
+这里，我们使用ssh的方式上传打包后的文件到服务器上。
+
+服务器的秘钥肯定不能写死在文件里，都是可以在github中配置的，如下所示：
+
+![1744470100863](image/readme/1744470100863.png)
+
+Repository serects中的秘钥可以在main.yml文件中直接通过 `${{ secrets.xxx }}`访问。`PRIVATE_KEY`是目标服务器上的私钥，一般是 `~/.ssh/id_rsa`文件。
+
+![1744471240478](image/readme/1744471240478.png)
+
+![1744471301799](image/readme/1744471301799.png)
+
+![1744471324945](image/readme/1744471324945.png)
