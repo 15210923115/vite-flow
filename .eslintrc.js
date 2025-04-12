@@ -17,7 +17,9 @@ module.exports = {
     // typescript的规则
     "plugin:@typescript-eslint/recommended",
     // @vue/eslint-config-prettier
-    "@vue/prettier"
+    "@vue/prettier",
+    // 该文件由vite.config.ts中的AutoImport生成
+    "./.eslintrc-auto-import.json"
   ],
   // 解析器，默认typescript的解析器
   // "parser": "@typescript-eslint/parser",
@@ -34,6 +36,7 @@ module.exports = {
   plugins: ["vue", "@typescript-eslint"],
   // 自定义的规则
   rules: {
+    "vue/multi-word-component-names": "off",
     "prettier/prettier": [
       "error",
       {

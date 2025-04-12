@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 // 声明文件 告诉ts 引入.vue文件的类型是什么
 
 declare module "*.vue" {
