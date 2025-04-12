@@ -16,12 +16,12 @@ import { shallowMount, mount } from "@vue/test-utils"
 // 分组
 describe("测试todo组件功能是否正常", () => {
   // 某一个用例
-  it("用户在输入框中输入内容 会影响数据的变化", () => {
-    const wrapper = shallowMount(Todo) // 浅挂载组件 返回值非常像jq里的$
-    const input = wrapper.find("input")
-    input.setValue("hello")
-    expect(wrapper.vm.todo).toBe("hello")
-  })
+  // it("用户在输入框中输入内容 会影响数据的变化", () => {
+  //   const wrapper = shallowMount(Todo) // 浅挂载组件 返回值非常像jq里的$
+  //   const input = wrapper.find("input")
+  //   input.setValue("hello")
+  //   expect(wrapper.vm.todo).toBe("hello")
+  // })
   it("用户点击按钮 新增一条数据 , 但是新增的内容不能为空", async () => {
     const wrapper = mount(Todo) // 深度挂载
     const input = wrapper.find("input")

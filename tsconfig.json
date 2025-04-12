@@ -31,5 +31,6 @@
     "src/**/*.vue",
     // 引入auto-imports.d.ts文件，该文件由unplugin-auto-import开发插件生成，自动导入vue和vue-router的类型声明
     "./auto-imports.d.ts"
-  ]
+  ],
+  "exclude": ["src/tests/**/*.*", "node_modules/**/*.*"]
 }

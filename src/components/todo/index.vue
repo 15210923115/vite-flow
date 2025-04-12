@@ -8,7 +8,14 @@
     </h1>
 
     <div flex items-center justify-center>
-      <input type="text" v-model="todo" shadow shadow-inset shadow-green-100 h-35px />
+      <input
+        type="text"
+        v-model="todo"
+        shadow
+        shadow-inset
+        shadow-green-100
+        h-35px
+      />
       <button @click="addTodo" ml-10px bg-blue-100 rounded py-2>
         添加内容
       </button>
